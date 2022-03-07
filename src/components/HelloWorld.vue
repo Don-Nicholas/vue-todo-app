@@ -1,8 +1,7 @@
 <template>
-  <b-container>
-    <b-row>
-      <b-col>
-        <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+  <b-container class="w-50">
+    <h1 id="header" ref="header">Todo List</h1>
+        <b-form @submit="onSubmit" @reset="onReset" v-if="show" class="mt-5">
           <b-form-group
             id="input-group-1"
             label="Name:"
@@ -35,7 +34,7 @@
           <template >
             <b-button
             v-show="form.update == false"
-             type="submit" class="my-3 w-100"
+             type="submit" class="my-3 w-"
             variant="primary"
           >Submit</b-button>
           
@@ -50,10 +49,10 @@
           >Cancel</b-button>
          
         </b-form>
-      </b-col>
-      <b-col>
+    
         <b-table
           striped hover :items="items" :fields="fields" :tbody-tr-class="rowClass"
+           class="my-5"
         >
           <template #cell(actions)="row">
             <b-button variant="success" size="sm" @click="updateUser(row.item.id)" class="mr-2">
@@ -64,13 +63,13 @@
             </b-button>
           </template>
         </b-table>  
-      </b-col>
-    </b-row>
+      
   </b-container>
 </template>
 
 <script>
   export default {
+    el:"#header",
     data() {
       return {
         form: {
@@ -136,6 +135,7 @@
           this.form.name = this.items[index].name,
           this.form.update = true,
           this.items[index].update = true
+          this.$refs.header.innerText = "Update Todo List"
         }
       }
     },
@@ -149,6 +149,7 @@
           this.form.email = '',
           this.form.name = '',
           this.form.update = false
+           this.$refs.header.innerText = "Todo List"
         }
       }
     },
